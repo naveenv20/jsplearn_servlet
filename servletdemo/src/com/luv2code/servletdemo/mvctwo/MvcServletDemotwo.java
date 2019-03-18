@@ -1,8 +1,9 @@
-package com.luv2code.servletdemo;
+package com.luv2code.servletdemo.mvctwo;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,36 +11,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Studentservlet
+ * Servlet implementation class MvcServletDemotwo
  */
-@WebServlet("/Studentservlet")
-public class Studentservlet extends HttpServlet {
+@WebServlet("/MvcServletDemotwo")
+public class MvcServletDemotwo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Studentservlet() {
+    public MvcServletDemotwo() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request,  HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Step 1: set the content type
-		
-		response.setContentType("text/html");
-		//Step 2 : print writer
-		PrintWriter out= response.getWriter();
-		//step 3 : generate html content
-		out.println("<html><body>");
-		out.println("Student is Confirmed");
-		out.println("First Name: "+request.getParameter("firstname"));
-		out.println("Last Name: "+request.getParameter("lastname"));
-		out.println("</body></html>");
+		//step 0 :get student data from helper class
+				List<Student>students= StudentDataUtil.getStudents(); 
+		//step 1 :add this list student to request object
+		request.setAttribute("student_list", students);
+		//step 2:get request dispatcher
+		RequestDispatcher dispatcher= request.getRequestDispatcher("view_students_two.jsp");
+		//step 3:forward to jsp
+		dispatcher.forward(request, response);
 	}
 
 	/**
