@@ -61,7 +61,7 @@ public class TestServlet extends HttpServlet {
 			String email=myRs.getString("email");
 			String firstname=myRs.getString("first_name");
 			String lastname=myRs.getString("last_name");
-			
+			 
 			out.println(email+firstname+lastname);
 			out.println("<br/>");
 		}
