@@ -62,7 +62,7 @@ public class StudentControllerServlet extends HttpServlet {
 		//add students to request object 
 		request.setAttribute("STUDENT_LIST", students);
 		//send to JSP (view )
-		RequestDispatcher dispatcher=request.getRequestDispatcher("/list-students.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("list_students.jsp");
 		dispatcher.forward(request, response);
 	}
 
