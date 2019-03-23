@@ -1,6 +1,4 @@
 <%@ page import="java.util.*,com.luv2code.web.jdbc.*" %>
-
-<!-- ABC -->
 <!DOCTYPE html>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -19,11 +17,7 @@ List<Student> theStudents=(List<Student>)request.getAttribute("STUDENT_LIST");
 
 
 <body>
-<% 
-out.println(theStudents);
-out.println(request.getAttribute("STUDENT_LIST"));
-out.println("***");
-%>
+
 	<div id="wrapper">
 		<div id="header">
 			<h2>FooBar</h2>
