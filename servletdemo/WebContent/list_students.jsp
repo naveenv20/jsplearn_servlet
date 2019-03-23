@@ -1,5 +1,5 @@
 <%@ page import="java.util.*,com.luv2code.web.jdbc.*" %>
-
+<!-- COMMENT-->
 <!DOCTYPE html>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
