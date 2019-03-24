@@ -1,4 +1,4 @@
-<%@ page import="java.util.*,com.luv2code.web.jdbc.*" %>
+	<%@ page import="java.util.*,com.luv2code.web.jdbc.*" %>
 <!DOCTYPE html>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -25,7 +25,12 @@ List<Student> theStudents=(List<Student>)request.getAttribute("STUDENT_LIST");
 	</div>
 	<div id="container">
 		<div id="content">
-		
+	
+	<!-- Put a new button : Add student -->
+		<input type="button" value="Add Student" 
+		onclick="window.location.href='add-student-form.jsp';return false;" 
+		class="add-student-button"
+		/>
 		<table>
 		<tr>
 			<th>First Name</th>

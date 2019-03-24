@@ -45,13 +45,63 @@ public class StudentControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-		//list the students in .... MVC fashion
-	 listStudents(request,response);
+			
+			//read the command parameter and route if accordingly  
+			
+			String thecommand=request.getParameter("command");
+			
+			
+			//if the command is missing  ,then simply route to listing page
+			
+			if(thecommand==null) {
+				thecommand="LIST";
+			}
+			
+			
+			//route to appropiate method 
+			switch (thecommand) {
+			case "LIST":
+				//list the students in .... MVC fashion
+				 listStudents(request,response);
+				
+				break;
+			case "ADD":
+				//list the students in .... MVC fashion
+				 addStudents(request,response);
+				
+				break;
+
+			default:
+				 listStudents(request,response);
+			}
+		
 		
 		}catch (Exception e) {
 			throw new ServletException(e);
 		}
 	
+		
+	}
+
+	private void addStudents(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		//read the student info from form data
+		String firstname=request.getParameter("firstname");
+		String lastname=request.getParameter("lastname");
+		String email=request.getParameter("email");
+		//create a new student object 
+		
+		Student thestudent=new Student(firstname, lastname, email);
+		
+		//add the student to the database
+		studentDbUtil.addStudent(thestudent);
+		
+		//send back to the main page ( the updated student list again display) 
+		listStudents(request,response);
+		
+		
+		
+		
 		
 	}
 
@@ -66,4 +116,8 @@ public class StudentControllerServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	
+	
+	
+	
 }
