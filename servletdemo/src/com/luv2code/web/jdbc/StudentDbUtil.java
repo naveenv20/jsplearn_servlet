@@ -187,6 +187,28 @@ public class StudentDbUtil {
 		}
 		
 	}
+
+
+	public void deleteStudent(int id) throws Exception {
+		// TODO Auto-generated method stub
+		Connection myConn=null;
+		PreparedStatement  myStmt=null;
+		try{
+			//get the connection
+			myConn=datasource.getConnection();
+			//prepare the sql statement
+			String sql="delete from student where id=?";
+			myStmt=myConn.prepareStatement(sql);
+			//set parameters
+			myStmt.setInt(1, id);
+			//execute query 
+			myStmt.execute();
+			//System.out.println("Done");
+		}
+		finally{
+		close(myConn, myStmt, null);	
+		}
+	}
 	
 	
 	

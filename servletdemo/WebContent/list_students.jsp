@@ -48,11 +48,24 @@ List<Student> theStudents=(List<Student>)request.getAttribute("STUDENT_LIST");
 		<c:param name="studentID" value="${tempStudent.id}"></c:param>
 		
 		</c:url>
+		
+		<!-- set a Del for each student -->
+		<c:url var="delLink" value="StudentControllerServlet">
+		<c:param name="command" value="DEL"></c:param>
+		<c:param name="studentID" value="${tempStudent.id}"></c:param>
+		
+		</c:url>
 		<tr>
 		<td>${tempStudent.firstname}</td>
 		<td>${tempStudent.lastname}</td>
 		<td>${tempStudent.email}</td>
-		<td><a href="${tempLink}"d> Update</a></td>
+		<td><a href="${tempLink}">Update</a>
+		| <a href="${delLink}"
+		onclick="if (!(confirm('Are you sure you want to delete the student?'))) return false">
+		Delete</a>
+		</td>
+		
+		
 		</tr>
 		
 		</c:forEach>

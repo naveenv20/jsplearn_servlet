@@ -82,6 +82,12 @@ public class StudentControllerServlet extends HttpServlet {
 				 updateStudents(request,response);
 				
 				break;
+				
+			case "DEL":
+				//list the students in .... MVC fashion
+				 deleteStudents(request,response);
+				
+				break;
 
 			default:
 				 listStudents(request,response);
@@ -92,6 +98,19 @@ public class StudentControllerServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 	
+		
+	}
+
+	private void deleteStudents(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		//read student id from the form data
+		int id=Integer.parseInt(request.getParameter("studentID"));
+		//System.out.println(id);
+		//delete student from data base
+		studentDbUtil.deleteStudent(id);
+		
+		//send them back to list students page
+		listStudents(request, response);
 		
 	}
 
