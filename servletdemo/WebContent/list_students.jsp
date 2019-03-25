@@ -36,14 +36,23 @@ List<Student> theStudents=(List<Student>)request.getAttribute("STUDENT_LIST");
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Email</th>
+			<th>Action</th>
 			
 		</tr>
 		
 		<c:forEach var="tempStudent" items="${STUDENT_LIST}">
+		
+		<!-- set a link for each student -->
+		<c:url var="tempLink" value="StudentControllerServlet">
+		<c:param name="command" value="LOAD"></c:param>
+		<c:param name="studentID" value="${tempStudent.id}"></c:param>
+		
+		</c:url>
 		<tr>
 		<td>${tempStudent.firstname}</td>
 		<td>${tempStudent.lastname}</td>
 		<td>${tempStudent.email}</td>
+		<td><a href="${tempLink}"d> Update</a></td>
 		</tr>
 		
 		</c:forEach>

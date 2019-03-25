@@ -3,6 +3,7 @@ package com.luv2code.web.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,8 +112,81 @@ public class StudentDbUtil {
 			close(myConn,myStmt,null);
 		}
 	}
+
+
+	public Student getStudents(String thestudentid) throws Exception {
+		
+		Student theStudent=null;
+		Connection myConn=null;
+		PreparedStatement  myStmt=null;
+		ResultSet myRs=null;
+		int studentId;
+		
+		try {
+		//convert studentid to int
+			studentId=Integer.parseInt(thestudentid);
+		//get the connection
+			myConn=datasource.getConnection();
+		//create sql to get selected student
+			String sql="Select * from student where id=?";
+			
+		//create prepared statement
+			myStmt=myConn.prepareStatement(sql);
+		//set parameters
+			myStmt.setInt(1,studentId);
+		//execute the query
+			myRs=myStmt.executeQuery();
+		//retrieve data from result set
+			if(myRs.next()) {
+				String firstname=myRs.getString("first_name");
+				String lastname=myRs.getString("last_name");
+				String email=myRs.getString("email");
+			
+			theStudent=new Student(studentId, firstname, lastname, email);
+			}
+			else {
+				throw new Exception("Could not found student id: "+ studentId);
+			}
+		return theStudent;
+	}finally {
+		close(myConn, myStmt, myRs);
+	}
 	
-	
+	}
+
+
+	public void updateStudent(Student theStudent) throws Exception {
+		
+		Connection myConn=null;
+		PreparedStatement  myStmt=null;
+		
+		
+		
+		try {
+			//get db connection
+			myConn=datasource.getConnection();
+			
+			//create sql statetment
+			String sql="update student "
+					+ "set first_name=?,last_name=?,email=? "
+					+ "where id=?";
+			//prepare statement
+			myStmt=myConn.prepareStatement(sql);
+			//set parameter
+			myStmt.setString(1,theStudent.getFirstname());
+			myStmt.setString(2,theStudent.getLastname());
+			myStmt.setString(3,theStudent.getEmail());
+			myStmt.setInt(4, theStudent.getId());
+		System.out.println("Hello");	
+			//execute the sql
+			myStmt.execute();
+			
+		}
+		finally {
+		close(myConn, myStmt, null);	
+		}
+		
+	}
 	
 	
 	
